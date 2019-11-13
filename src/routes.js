@@ -3,7 +3,7 @@ import {Switch, Route} from 'react-router-dom';
 import MovieList from './components/movies/MovieList';
 const Routes = () => (
     <Switch>
-        <Route  path="/list" component={MovieList} />
+        <Route  exact path="/" component={MovieList} />
     </Switch>
 )
 export default Routes;

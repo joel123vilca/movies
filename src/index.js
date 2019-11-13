@@ -11,10 +11,10 @@ import movieReducer from './reducers/movieReducer';
 import {Provider} from 'react-redux'
 
 let initialState = [
-    {id:1,name:'John Doe',active:true,publication_date:"12-11-2019"},
-    {id:2,name:'Jane Doe',active:false,publication_date:"12-11-2019"},
-    {id:3,name:'Terry Adams',active:false,publication_date:"12-11-2019"},
-    {id:4,name:'Jenny Smith',active:true,publication_date:"12-11-2019"}
+    {id:1,name:'Jason Bourne',active:true,publication_date:"2019-12-13"},
+    {id:2,name:'Alicia en el Pais de las Maravillas',active:false,publication_date:"2019-12-13"},
+    {id:3,name:'Tarzan la Leyenda',active:false,publication_date:"2019-12-13"},
+    {id:4,name:'Mi buen Amigo Gigante',active:true,publication_date:"2019-12-13"}
 ];
 
 if( localStorage.getItem("movies") === null)

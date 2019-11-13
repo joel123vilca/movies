@@ -116,7 +116,7 @@ class  UpdateMovie extends Component {
         <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
           <center>Editar Pelicula</center>
         </DialogTitle>
-        <DialogContent dividers>
+        <DialogContent>
         <Grid item xs={12} style={{padding:'15px'}}>
           <Grid container spacing={1} style={{marginBottom:'15px'}}>
             <Grid item xs={4}>
@@ -177,10 +177,12 @@ class  UpdateMovie extends Component {
             </Grid>
           </Grid>
         </Grid>
-        </DialogContent>
-            <Button  onClick={this.updateMovie} color="primary">
+          <center>
+            <Button variant="contained" onClick={this.updateMovie} color="primary" style={{width:'200px'}}>
               Guardar
             </Button>
+          </center>
+        </DialogContent>
       </Dialog>
     </div>
   );

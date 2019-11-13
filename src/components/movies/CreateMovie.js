@@ -169,10 +169,12 @@ class  CreateMovie extends Component {
             </Grid>
           </Grid>
         </Grid>
-        </DialogContent>
-            <Button  onClick={this.addNewMovie} color="primary">
+          <center>
+            <Button variant="contained" onClick={this.addNewMovie} color="primary" style={{width:'200px'}}>
               Guardar
             </Button>
+          </center>
+        </DialogContent>
       </Dialog>
     </div>
   );

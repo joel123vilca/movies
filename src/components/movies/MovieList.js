@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import CreateMovie from './CreateMovie';
 import UpdateMovie from './UpdateMovie';
+import DeleteMovieDialog from './DeleteMovie';
 import {deleteMovie} from '../../actions/movie';
 import {
     Table,
@@ -23,16 +24,29 @@ import { bindActionCreators } from 'redux';
 
 class MovieList extends Component {  
 
-  onDelete(id){
-    let r = window.confirm("Do you want to delete this item");
-    if( r === true)
-    {
-      this.props.deleteMovie(id);
-    }
+  state={
+    deleteDialog:false,
+    idDelete:''
+  }
+  handleClose=(e)=>{
+    this.setState({
+      deleteDialog:false,
+    })
+  }
+  onDelete(id) {
+    this.setState({
+      deleteDialog: true,
+      idDelete:id
+    })
+  }
+  handleDelete=(e)=>{
+    const {idDelete}=this.state;
+    this.props.deleteMovie(idDelete);
+    this.handleClose();
   }
     render() {
         const { movieList } = this.props;
-        console.log(movieList);
+        const {deleteDialog} = this.state;
         return (
         <Paper >
             <div>
@@ -92,6 +106,7 @@ class MovieList extends Component {
                 </Grid>
               </Grid>
             </div>
+            <DeleteMovieDialog handleClose={this.handleClose} deleteDialog={deleteDialog} handleDelete={this.handleDelete}/>
           </Paper>
         );
     }
