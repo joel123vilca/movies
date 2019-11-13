@@ -7,12 +7,12 @@ const movieReducer = (state = [],action) => {
     return stateCopy
     
     case 'DELETE_MOVIE':
-      stateCopy = state.filter( movie => movie.id !== action.payload)
-      localStorage.setItem('movies',JSON.stringify(stateCopy));
-    return stateCopy
+      state = state.filter( movie => movie.id !== action.payload)
+      localStorage.setItem('movies',JSON.stringify(state));
+    return state
     
     case 'UPDATE_MOVIE':
-      stateCopy = state.map((movie) => {
+      state = state.map((movie) => {
         const {id,name,active,publication_date} = action.payload;
         if(movie.id === id)
         {
@@ -22,8 +22,8 @@ const movieReducer = (state = [],action) => {
         } 
         return movie;
       })
-      localStorage.setItem('movies',JSON.stringify(stateCopy));
-    return stateCopy
+      localStorage.setItem('movies',JSON.stringify(state));
+    return state
     
     default:
       return state;

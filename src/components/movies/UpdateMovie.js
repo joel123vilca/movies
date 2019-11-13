@@ -65,7 +65,7 @@ class  UpdateMovie extends Component {
       id:this.props.movie.id,
       open:false,
       active:this.props.movie.active,
-      selectedDate:'',
+      selectedDate:new Date(this.props.movie.publication_date),
       publication_date: this.props.movie.publication_date,
       name:this.props.movie.name
     }
@@ -100,6 +100,9 @@ class  UpdateMovie extends Component {
   {
     const {id,name,active,publication_date} = this.state;
     this.props.updateMovie({id:id,name:name,active:active,publication_date:publication_date});
+    this.setState({
+      open: false
+    })
   }
   render(){
     const {name,active} = this.state;

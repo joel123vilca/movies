@@ -22,7 +22,7 @@ import { bindActionCreators } from 'redux';
 
 
 class MovieList extends Component {  
-    
+
   onDelete(id){
     let r = window.confirm("Do you want to delete this item");
     if( r === true)
