@@ -163,7 +163,7 @@ class  CreateMovie extends Component {
                   onChange={this.handleChange}
                 >
                   <MenuItem value={true}>Activo</MenuItem>
-                  <MenuItem value={false}>Desactivo</MenuItem>
+                  <MenuItem value={false}>Inactivo</MenuItem>
                 </Select>
               </FormControl>
             </Grid>

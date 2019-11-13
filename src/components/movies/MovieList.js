@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import CreateMovie from './CreateMovie';
-import {addMovie,deleteMovie,updateMovie} from '../../actions/movie';
+import UpdateMovie from './UpdateMovie';
+import {deleteMovie} from '../../actions/movie';
 import {
     Table,
     TableBody,
@@ -15,7 +16,6 @@ import {
     Grid,
     Typography
 } from '@material-ui/core'
-import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -26,12 +26,13 @@ class MovieList extends Component {
   onDelete(id){
     let r = window.confirm("Do you want to delete this item");
     if( r === true)
-      {
-    this.props.deleteMovie(id);
+    {
+      this.props.deleteMovie(id);
     }
   }
     render() {
         const { movieList } = this.props;
+        console.log(movieList);
         return (
         <Paper >
             <div>
@@ -40,7 +41,7 @@ class MovieList extends Component {
                   <Toolbar className="toolbar">
                     <Typography className="titulo-banner">Peliculas</Typography>
                     <div style={{flexGrow: '2'}} />
-                    <CreateMovie  addMovie={this.props.addMovie}/>
+                    <CreateMovie/>
                   </Toolbar>
                 </Grid>
                 <Grid item xs={6} >
@@ -73,12 +74,11 @@ class MovieList extends Component {
                               {movie.publication_date}
                             </TableCell>
                             <TableCell component="th" scope="row">
-                              {movie.active}
+                              {movie.active === true && <p>Activo</p>}
+                              {movie.active === false && <p>Inactivo</p>}
                             </TableCell>
                             <TableCell align="right">
-                                  <Button onClick={() => this.addNewMovie()}>
-                                  <Link><EditIcon/></Link>
-                                  </Button>
+                                  <UpdateMovie  movie={movie}/>
                                   <Button  onClick={() => this.onDelete(movie.id)}>
                                   <Link><DeleteIcon /></Link>
                                   </Button>
@@ -104,9 +104,7 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    addMovie:addMovie,
     deleteMovie:deleteMovie,
-    updateMovie:updateMovie
   },dispatch);
 }
 export default connect(mapStateToProps,mapDispatchToProps)(MovieList);

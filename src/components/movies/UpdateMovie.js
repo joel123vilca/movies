@@ -1,4 +1,7 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
+import {updateMovie} from '../../actions/movie'
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -18,6 +21,7 @@ import {
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import esLocale from "date-fns/locale/es";
+import EditIcon from '@material-ui/icons/Edit';
 
 const styles = theme => ({
   root: {
@@ -55,13 +59,18 @@ const DialogContent = withStyles(theme => ({
 
 class  UpdateMovie extends Component {
 
-  state={
-    open:false,
-    active:true,
-    selectedDate:new Date(),
-    publication_date: new Date().toJSON().slice(0, 10),
-    name:''
+  constructor(props) {
+    super(props);
+    this.state={
+      id:this.props.movie.id,
+      open:false,
+      active:this.props.movie.active,
+      selectedDate:'',
+      publication_date: this.props.movie.publication_date,
+      name:this.props.movie.name
+    }
   }
+
   handleClickOpen = () => {
     this.setState({
       open: true
@@ -72,6 +81,7 @@ class  UpdateMovie extends Component {
       open: false
     })
   };
+  
   handleChange=(e)=> {
     const { name, value } = e.target;
     this.setState({ [name]: value });
@@ -86,16 +96,19 @@ class  UpdateMovie extends Component {
         console.log('luego de setear la fecha : ',this.state.selectedDate);
       });
   };
-  addNewMovie = () =>
+  updateMovie = () =>
   {
+    const {id,name,active,publication_date} = this.state;
+    this.props.updateMovie({id:id,name:name,active:active,publication_date:publication_date});
   }
   render(){
     const {name,active} = this.state;
   return (
     <div>
-      <Button variant="contained" style={{color: 'white', background:'green'}} onClick={this.handleClickOpen}>
-        Editar Pelicula
+      <Button onClick={this.handleClickOpen}>
+        <EditIcon/>
       </Button>
+      
       <Dialog onClose={this.handleClose} aria-labelledby="customized-dialog-title" open={this.state.open}>
         <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
           <center>Editar Pelicula</center>
@@ -155,14 +168,14 @@ class  UpdateMovie extends Component {
                   onChange={this.handleChange}
                 >
                   <MenuItem value={true}>Activo</MenuItem>
-                  <MenuItem value={false}>Desactivo</MenuItem>
+                  <MenuItem value={false}>Inactivo</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
           </Grid>
         </Grid>
         </DialogContent>
-            <Button  onClick={this.addNewMovie} color="primary">
+            <Button  onClick={this.updateMovie} color="primary">
               Guardar
             </Button>
       </Dialog>
@@ -171,4 +184,14 @@ class  UpdateMovie extends Component {
   }
 }
 
-export default ((withStyles(styles)(UpdateMovie)));
+const mapStateToProps = (state) => {
+  return {
+    movieList : state
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    updateMovie:updateMovie,
+  },dispatch);
+}
+export default connect(mapStateToProps,mapDispatchToProps)((withStyles(styles)(UpdateMovie)));
